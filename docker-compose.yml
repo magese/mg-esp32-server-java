@@ -1,21 +1,4 @@
 services:
-  mysql:
-    build:
-      context: .
-      dockerfile: Dockerfile-mysql
-    ports:
-      - "13306:3306"  # 修改为 13306 或其他未使用的端口
-    networks:
-      - app-network
-    volumes:
-      - mysql_data:/var/lib/mysql  # 持久化数据
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "xiaozhi", "-p123456"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-
   node:
     build:
       context: .
@@ -60,6 +43,5 @@ networks:
     driver: bridge
 
 volumes:
-  mysql_data:  # 定义持久化卷
   maven_repo:  # 持久化Maven仓库
   vosk_models:  # 持久化Vosk模型
