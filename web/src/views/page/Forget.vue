@@ -17,7 +17,7 @@
                 <a-icon type="api" class="logo-icon" />
               </div>
               <a-typography-title level="{1}" class="system-title"
-                >小智 ESP32</a-typography-title
+                >Magese ESP32</a-typography-title
               >
               <a-typography-paragraph class="system-subtitle"
                 >智能物联网管理平台</a-typography-paragraph

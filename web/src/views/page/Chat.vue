@@ -4,24 +4,24 @@
     <div class="chat-header">
       <!-- 左侧连接按钮 -->
       <div class="header-left">
-        <a-button 
-          type="text" 
-          class="connection-btn" 
-          @click="toggleConnection" 
+        <a-button
+          type="text"
+          class="connection-btn"
+          @click="toggleConnection"
           :disabled="localConnectionStatus === '正在连接...'"
         >
-          <a-icon 
-            :type="localIsConnected ? 'disconnect' : 'link'" 
+          <a-icon
+            :type="localIsConnected ? 'disconnect' : 'link'"
             :style="{ color: localIsConnected ? '#52c41a' : '#ff4d4f' }"
           />
         </a-button>
       </div>
-      
+
       <div class="header-title">
         小智助手
         <a-tag :color="connectionStatusColor">{{ localConnectionStatus }}</a-tag>
       </div>
-      
+
       <div class="header-right">
         <a-dropdown>
           <template #overlay>
@@ -226,7 +226,7 @@ export default {
       connectionAlert: {
         show: false,
         title: '未连接到服务器',
-        message: '请配置并连接到小智服务器',
+        message: '请配置并连接到服务器',
         type: 'info'
       },
       // 头像

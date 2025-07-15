@@ -5,7 +5,7 @@
       <div class="circuit-board"></div>
       <div class="gradient-overlay"></div>
     </div>
-    
+
     <!-- 主要内容区 -->
     <a-row type="flex" justify="center" align="middle" class="full-height">
       <a-col :xs="24" :sm="22" :md="18" :lg="16" :xl="14">
@@ -16,24 +16,24 @@
               <div class="system-logo">
                 <a-icon type="api" class="logo-icon" />
               </div>
-              <a-typography-title level={1} class="system-title">小智 ESP32</a-typography-title>
+              <a-typography-title level={1} class="system-title">Magese ESP32</a-typography-title>
               <a-typography-paragraph class="system-subtitle">智能物联网管理平台</a-typography-paragraph>
             </a-col>
-            
+
             <!-- 注册表单区 -->
             <a-col :xs="24" :md="12" class="register-form-container">
               <div class="form-header">
                 <a-typography-title level={3} class="form-title">注册账号</a-typography-title>
                 <a-typography-paragraph class="form-subtitle">
-                  {{ currentStep === 1 ? '填写账号信息' : 
+                  {{ currentStep === 1 ? '填写账号信息' :
                      currentStep === 2 ? '验证邮箱' : '注册完成' }}
                 </a-typography-paragraph>
               </div>
-              
+
               <!-- 步骤条 -->
               <div class="custom-steps">
-                <div 
-                  v-for="step in 3" 
+                <div
+                  v-for="step in 3"
                   :key="step"
                   :class="['step-item', currentStep >= step ? 'active' : '', currentStep === step ? 'current' : '']"
                 >
@@ -43,7 +43,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <!-- 步骤1：填写基本信息 -->
               <a-form-model
                 v-if="currentStep === 1"
@@ -139,7 +139,7 @@
                       <a-icon slot="prefix" type="lock" />
                     </a-input-password>
                   </a-popover>
-                  
+
                   <!-- 移动设备上显示的简化版密码强度指示器 -->
                   <div v-if="isMobileScreen && formData.password" class="mobile-password-strength">
                     <span>密码强度：</span>
@@ -330,13 +330,13 @@ export default {
         callback();
         return;
       }
-      
+
       // 简单的手机号格式验证
       if (!/^1[3-9]\d{9}$/.test(value)) {
         callback(new Error("请输入有效的手机号码"));
         return;
       }
-      
+
       callback();
     };
 
@@ -579,7 +579,7 @@ export default {
       }
       this.$forceUpdate(); // 强制更新视图
     },
-    
+
     // 密码输入框获得焦点
     onPasswordFocus() {
       // 只在非移动设备上显示密码强度弹出框
@@ -1001,18 +1001,18 @@ $gradient-end: #722ed1;
   margin-top: 8px;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.7);
-  
+
   .strength-text {
     font-weight: 500;
-    
+
     &.error {
       color: #ff4d4f;
     }
-    
+
     &.warning {
       color: #faad14;
     }
-    
+
     &.success {
       color: #52c41a;
     }
@@ -1073,7 +1073,7 @@ $gradient-end: #722ed1;
     padding-top: 30px;
     padding-bottom: 30px;
   }
-  
+
   .register-form-container {
     border-radius: 0 0 16px 16px;
   }
@@ -1083,27 +1083,27 @@ $gradient-end: #722ed1;
       font-size: 10px;
     }
   }
-  
+
   // 减小移动端的Logo大小
   .logo-icon {
     font-size: 48px;
     padding: 15px;
   }
-  
+
   // 减小移动端的标题大小
   .system-title {
     font-size: 24px !important;
   }
-  
+
   .system-subtitle {
     font-size: 14px !important;
   }
-  
+
   // 减小表单标题大小
   .form-title {
     font-size: 20px !important;
   }
-  
+
   // 调整表单项间距
   ::v-deep .ant-form-item {
     margin-bottom: 16px;
@@ -1129,20 +1129,20 @@ $gradient-end: #722ed1;
       }
     }
   }
-  
+
   // 更小屏幕上进一步减小内边距
   .system-info,
   .register-form-container {
     padding: 15px 12px;
   }
-  
+
   // 更小的Logo
   .logo-icon {
     font-size: 40px;
     padding: 12px;
     margin-bottom: 20px;
   }
-  
+
   // 更小的标题
   .system-title {
     font-size: 20px !important;

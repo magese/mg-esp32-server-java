@@ -5,7 +5,7 @@
       <div class="circuit-board"></div>
       <div class="gradient-overlay"></div>
     </div>
-    
+
     <!-- 主要内容区 -->
     <a-row type="flex" justify="center" align="middle" class="full-height">
       <a-col :xs="22" :sm="20" :md="18" :lg="16" :xl="14">
@@ -16,10 +16,10 @@
               <div class="system-logo">
                 <a-icon type="api" class="logo-icon" />
               </div>
-              <a-typography-title level={1} class="system-title">小智 ESP32</a-typography-title>
+              <a-typography-title level={1} class="system-title">MAGESE ESP32</a-typography-title>
               <a-typography-paragraph class="system-subtitle">智能物联网管理平台</a-typography-paragraph>
             </a-col>
-            
+
             <!-- 登录表单区 -->
             <a-col :xs="24" :md="12" class="login-form-container">
               <a-form-model
@@ -33,7 +33,7 @@
                 <div class="form-header">
                   <a-typography-paragraph class="form-subtitle">欢迎回来，请登录您的账户</a-typography-paragraph>
                 </div>
-                
+
                 <a-form-model-item prop="username">
                   <a-input
                     v-model="loginForm.username"
@@ -44,7 +44,7 @@
                     <a-icon slot="prefix" type="user" />
                   </a-input>
                 </a-form-model-item>
-                
+
                 <a-form-model-item prop="password">
                   <a-input-password
                     v-model="loginForm.password"
@@ -56,7 +56,7 @@
                     <a-icon slot="prefix" type="lock" />
                   </a-input-password>
                 </a-form-model-item>
-                
+
                 <a-row type="flex" justify="space-between" align="middle" class="form-options">
                   <a-col>
                     <a-checkbox v-model="loginForm.rememberMe" class="remember-me">
@@ -69,10 +69,10 @@
                     </router-link>
                   </a-col>
                 </a-row>
-                
-                <a-button 
-                  type="primary" 
-                  html-type="submit" 
+
+                <a-button
+                  type="primary"
+                  html-type="submit"
                   class="login-button"
                   :loading="loading"
                   block
@@ -81,7 +81,7 @@
                   <span>登录</span>
                   <a-icon type="arrow-right" />
                 </a-button>
-                
+
                 <!-- 添加注册按钮 -->
                 <div class="register-container">
                   <span class="register-text">还没有账户?</span>
@@ -90,18 +90,18 @@
                   </router-link>
                 </div>
               </a-form-model>
-              
+
               <a-divider style="margin-top: 25px; margin-bottom: 15px;" />
-              
+
               <a-typography-paragraph class="login-footer">
-                © {{ new Date().getFullYear() }} 小智ESP32物联网平台
+                © {{ new Date().getFullYear() }} Magese ESP32 物联网平台
               </a-typography-paragraph>
             </a-col>
           </a-row>
         </a-card>
       </a-col>
     </a-row>
-    
+
     <!-- 技术信息卡片 - 优化尺寸 -->
     <a-row type="flex" justify="center" class="tech-cards-row">
       <a-col :xs="22" :md="16" :xl="12">
@@ -127,10 +127,10 @@
         </a-row>
       </a-col>
     </a-row>
-    
+
     <!-- 浮动图标 (保留少量装饰性元素) -->
     <div class="floating-icons">
-      <div class="icon-item" v-for="(icon, index) in icons" :key="index" 
+      <div class="icon-item" v-for="(icon, index) in icons" :key="index"
            :style="{ left: icon.left + '%', top: icon.top + '%', animationDelay: icon.delay + 's' }">
         <a-icon :type="icon.type" />
       </div>
@@ -271,7 +271,7 @@ $gradient-end: #722ed1;
 
 .circuit-board {
   @extend %full-abs;
-  background: 
+  background:
     linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px),
     linear-gradient(0deg, rgba(255,255,255,.07) 1px, transparent 1px);
   background-size: 20px 20px;
@@ -297,7 +297,7 @@ $gradient-end: #722ed1;
   font-size: 24px;
   color: rgba(255, 255, 255, 0.2);
   animation: float 6s ease-in-out infinite;
-  
+
   i {
     font-size: 24px;
   }
@@ -317,7 +317,7 @@ $gradient-end: #722ed1;
   z-index: 10;
   position: relative;
   box-shadow: none;
-  
+
   ::v-deep .ant-card-body {
     padding: 0;
   }
@@ -336,7 +336,7 @@ $gradient-end: #722ed1;
   overflow: hidden;
   min-height: 360px;
   border-radius: 16px 0 0 16px;
-  
+
   &::before {
     content: '';
     @extend %full-abs;
@@ -407,7 +407,7 @@ $gradient-end: #722ed1;
   margin-bottom: 25px;
   text-align: center;
   @extend %z-layer;
-  
+
   ::v-deep h2.ant-typography {
     color: $light-color;
     font-size: 24px;
@@ -416,7 +416,7 @@ $gradient-end: #722ed1;
     letter-spacing: 1px;
     position: relative;
     display: inline-block;
-    
+
     &::after {
       content: '';
       position: absolute;
@@ -449,47 +449,47 @@ $gradient-end: #722ed1;
   background: linear-gradient(to right, rgba(40, 48, 65, 0.6), rgba(40, 48, 65, 0.8)) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1) !important;
-  
+
   input {
     background: transparent !important;
     color: $light-color !important;
     height: 44px;
     padding-left: 15px !important;
-    
+
     &::placeholder {
       color: rgba(255, 255, 255, 0.5) !important;
       font-weight: 300;
     }
   }
-  
+
   .ant-input-prefix {
     color: $accent-color !important;
     margin-right: 12px !important;
     font-size: 18px !important;
     opacity: 0.9;
   }
-  
+
   &:hover {
     border-color: rgba($primary-color, 0.7) !important;
     background: linear-gradient(to right, rgba(40, 48, 65, 0.7), rgba(40, 48, 65, 0.9)) !important;
   }
-  
+
   &:focus, &:focus-within {
     border-color: $primary-color !important;
     box-shadow: 0 0 0 2px rgba($primary-color, 0.2) !important;
     background: rgba(40, 48, 65, 0.9) !important;
   }
-  
+
   .ant-input-password-icon {
     color: rgba(255, 255, 255, 0.7) !important;
-    
+
     &:hover { color: $accent-color !important; }
   }
-  
+
   .ant-input-affix-wrapper {
     background: transparent !important;
     border: none !important;
-    
+
     input { background: transparent !important; }
   }
 }
@@ -502,13 +502,13 @@ $gradient-end: #722ed1;
 
 .remember-me {
   color: rgba(255, 255, 255, 0.8);
-  
+
   ::v-deep .ant-checkbox-inner {
     background-color: rgba(30, 38, 55, 0.8);
     border-color: rgba(255, 255, 255, 0.3);
     width: 16px;
     height: 16px;
-    
+
     .ant-checkbox-checked & {
       background-color: $primary-color;
       border-color: $primary-color;
@@ -519,7 +519,7 @@ $gradient-end: #722ed1;
 .forgot-password {
   color: $accent-color;
   font-size: 14px;
-  
+
   &:hover {
     text-decoration: underline;
     color: lighten($accent-color, 10%);
@@ -536,12 +536,12 @@ $gradient-end: #722ed1;
   @extend %flex-center;
   transition: all 0.3s ease;
   @extend %z-layer;
-  
+
   span {
     margin-right: 8px;
     font-weight: 500;
   }
-  
+
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(24, 144, 255, 0.3);
@@ -566,7 +566,7 @@ $gradient-end: #722ed1;
   color: $accent-color;
   font-size: 14px;
   font-weight: 500;
-  
+
   &:hover {
     text-decoration: underline;
     color: lighten($accent-color, 10%);
@@ -606,15 +606,15 @@ $gradient-end: #722ed1;
   width: 180px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   margin: 0 auto;
-  
+
   i {
     font-size: 20px;
     margin-bottom: 5px;
     color: $accent-color;
   }
-  
+
   span { font-size: 12px; }
-  
+
   &:hover {
     transform: translateY(-3px);
     background: rgba(24, 36, 52, 0.85);
@@ -629,21 +629,21 @@ $gradient-end: #722ed1;
     padding: 30px 20px;
     min-height: auto;
   }
-  
+
   .system-info { border-radius: 16px 16px 0 0; }
   .login-form-container { border-radius: 0 0 16px 16px; }
-  
+
   .tech-cards-row {
     position: relative;
     bottom: auto;
     margin-top: -20px;
     margin-bottom: 30px;
   }
-  
+
   .tech-card {
     height: 70px;
     width: 70px;
-    
+
     i { font-size: 18px; }
     span { font-size: 11px; }
   }
