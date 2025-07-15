@@ -20,8 +20,7 @@ public class MageseAIApplication {
             SpringApplication.run(MageseAIApplication.class, args);
             ServerProperties serverProperties = SpringUtil.getBean(ServerProperties.class);
             Integer port = serverProperties.getPort();
-            String contextPath = serverProperties.getServlet().getContextPath();
-            log.info("MageseAIApplication 启动成功，端口：{}，上下文：{}", port, contextPath);
+            log.info("MageseAIApplication 启动成功，tomcat端口：{}", port);
         } catch (Exception e) {
             log.error("MageseAIApplication 启动失败", e);
         }
