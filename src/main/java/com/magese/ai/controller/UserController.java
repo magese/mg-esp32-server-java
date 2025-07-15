@@ -234,8 +234,8 @@ public class UserController extends BaseController {
             OhMyEmail.config(SMTP_QQ(false), emailUsername, emailPassword);
 
             // 发送邮件
-            OhMyEmail.subject("小智ESP32-智能物联网管理平台")
-                    .from("小智物联网管理平台")
+            OhMyEmail.subject("MAGESE ESP32-智能物联网管理平台")
+                    .from("MAGESE物联网管理平台")
                     .to(email)
                     .html(emailContent)
                     .send();

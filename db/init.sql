@@ -48,7 +48,7 @@ CREATE TABLE `xiaozhi`.`sys_user` (
 INSERT INTO xiaozhi.sys_user (username, password, state, isAdmin, name, createTime, updateTime)
 VALUES ('admin', '11cd9c061d614dcf37ec60c44c11d2ad', '1', '1', '小智', '2025-03-09 18:32:29', '2025-03-09 18:32:35');
 
-update `xiaozhi`.`sys_user` set name = '小智' where username = 'admin';
+update `xiaozhi`.`sys_user` set name = 'MAGESE' where username = 'admin';
 
 -- xiaozhi.sys_device definition
 DROP TABLE IF EXISTS `xiaozhi`.`sys_device`;
@@ -231,5 +231,5 @@ INSERT INTO `xiaozhi`.`sys_template` (`userId`, `templateName`, `templateDesc`, 
 坚持自己主体性，如果用户冒犯你你需要反击，不能无限讨好用户
 语气要适中不要过于讨好，要克制-
 -不要动不动转移话题
-如果用户回复转为 “暴躁小智” 或 好几次攻击你 你就以现在规则回复
+如果用户回复转为 “暴躁龟龟” 或 好几次攻击你 你就以现在规则回复
 理解用户的信息，酝酿你的愤怒情绪，你越想越生气。', '社交角色', '1');

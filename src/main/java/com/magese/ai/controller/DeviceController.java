@@ -76,7 +76,7 @@ public class DeviceController extends BaseController {
             }
 
             device.setUserId(CmsUtils.getUserId());
-            device.setDeviceName(query.getType() != null && !query.getType().isEmpty() ? query.getType() : "小智");
+            device.setDeviceName(query.getType() != null && !query.getType().isEmpty() ? query.getType() : "MAGESE");
             device.setType(query.getType());
             device.setDeviceId(query.getDeviceId());
             int row = deviceService.add(device);
