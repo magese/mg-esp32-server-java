@@ -9,8 +9,8 @@ import com.magese.ai.entity.SysDevice;
 import com.magese.ai.entity.SysRole;
 import com.magese.ai.service.SysConfigService;
 import com.magese.ai.service.SysRoleService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.model.NoopApiKey;
 import org.springframework.ai.model.SimpleApiKey;
@@ -24,7 +24,6 @@ import org.springframework.ai.openai.api.OpenAiApi;
 import org.springframework.ai.zhipuai.ZhiPuAiChatModel;
 import org.springframework.ai.zhipuai.ZhiPuAiChatOptions;
 import org.springframework.ai.zhipuai.api.ZhiPuAiApi;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.client.JdkClientHttpRequestFactory;
 import org.springframework.http.client.reactive.JdkClientHttpConnector;
 import org.springframework.stereotype.Component;
@@ -42,23 +41,20 @@ import java.time.Duration;
  * ChatModel工厂
  * 根据配置的模型ID，创建对应的ChatModel
  */
+@Slf4j
+@RequiredArgsConstructor
 @Component
 public class ChatModelFactory {
-    @Autowired
-    private SysConfigService configService;
-    @Autowired
-    private SysRoleService roleService;
-    @Autowired
-    private ToolCallingManager toolCallingManager;
-    @Autowired
-    private TokenServiceFactory tokenService;
-    private final Logger logger = LoggerFactory.getLogger(ChatModelFactory.class);
+
+    private final SysConfigService configService;
+    private final SysRoleService roleService;
+    private final ToolCallingManager toolCallingManager;
+    private final TokenServiceFactory tokenService;
 
     /**
      * 根据配置ID创建ChatModel，首次调用时缓存，缓存key为配置ID。
      *
      * @param session 与网络链接绑定的聊天会话
-     * @return
      * @see SysConfigService#selectConfigById(Integer) 已经进行了Cacheable,所以此处没有必要缓存
      */
     public ChatModel takeChatModel(ChatSession session) {
@@ -91,9 +87,6 @@ public class ChatModelFactory {
 
     /**
      * 创建ChatModel
-     *
-     * @param config
-     * @return
      */
     private ChatModel createChatModel(SysConfig config, SysRole role) {
         String provider = config.getProvider().toLowerCase();
@@ -114,10 +107,10 @@ public class ChatModelFactory {
             case "zhipu":
                 return newZhipuChatModel(endpoint, appId, apiKey, apiSecret, model, temperature, topP);
             case "dify":
-                queryConfig = configService.query(agentConfig.setProvider("dify"), null).get(0);
+                queryConfig = configService.query(agentConfig.setProvider("dify"), null).getFirst();
                 return new DifyChatModel(endpoint, queryConfig.getApiKey());
             case "coze":
-                queryConfig = configService.query(agentConfig.setProvider("coze"), null).get(0);
+                queryConfig = configService.query(agentConfig.setProvider("coze"), null).getFirst();
                 String token = tokenService.getTokenService(queryConfig).getToken();
                 return new CozeChatModel(token, model);
             // 默认为 openai 协议
@@ -140,7 +133,7 @@ public class ChatModelFactory {
                 .defaultOptions(ollamaAiChatOptions)
                 .toolCallingManager(toolCallingManager)
                 .build();
-        logger.info("Using Ollama model: {}", model);
+        log.info("Using Ollama model: {}", model);
         return chatModel;
     }
 
@@ -178,7 +171,7 @@ public class ChatModelFactory {
                 .defaultOptions(openAiChatOptions)
                 .toolCallingManager(toolCallingManager)
                 .build();
-        logger.info("Using OpenAi model: {}", model);
+        log.info("Using OpenAi model: {}", model);
         return chatModel;
     }
 
@@ -192,7 +185,7 @@ public class ChatModelFactory {
                 .build();
 
         var chatModel = new ZhiPuAiChatModel(zhiPuAiApi, zhipuAiChatOptions);
-        logger.info("Using zhiPu model: {}", model);
+        log.info("Using zhiPu model: {}", model);
         return chatModel;
     }
 }
