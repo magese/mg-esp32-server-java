@@ -6,19 +6,19 @@
         <div class="chat-popup-header">
           <div class="header-left">
             <div class="connection-status">
-              <div 
+              <div
                 class="status-dot"
                 :class="{ 'connected': wsIsConnected, 'disconnected': !wsIsConnected }"
               />
               <span class="status-text">{{ wsConnectionStatus }}</span>
             </div>
           </div>
-          
+
           <div class="header-title">
             <a-icon type="message" />
-            <span>小智助手</span>
+            <span>WebChat</span>
           </div>
-          
+
           <div class="header-actions">
             <!-- 添加全屏按钮 -->
             <a-button type="text" size="small" @click="handleGoToFullChat" title="全屏模式">
@@ -29,7 +29,7 @@
             </a-button>
           </div>
         </div>
-        
+
         <!-- 聊天内容 -->
         <div class="chat-popup-content">
           <ChatComponent
@@ -50,12 +50,12 @@
             @mode-change="handleModeChange"
           />
         </div>
-        
+
         <!-- 快捷操作 -->
         <div class="chat-popup-footer">
-          <a-button 
-            type="text" 
-            size="small" 
+          <a-button
+            type="text"
+            size="small"
             @click="handleToggleConnection"
             :disabled="wsConnectionStatus === '正在连接...'"
             :loading="wsConnectionStatus === '正在连接...'"
@@ -71,17 +71,17 @@
             :overlay-style="{ maxWidth: '300px' }"
             @confirm="handleClearMessages"
           >
-            <a-button 
-              type="text" 
+            <a-button
+              type="text"
               size="small"
             >
               <a-icon type="delete" />
               清空
             </a-button>
           </a-popconfirm>
-          <a-button 
-            type="text" 
-            size="small" 
+          <a-button
+            type="text"
+            size="small"
             @click="handleGoToFullChat"
           >
             <a-icon type="fullscreen" />
@@ -95,7 +95,7 @@
 
 <script>
 import ChatComponent from '@/components/ChatComponent'
-import { 
+import {
   messages,
   clearMessages
 } from '@/services/websocketService'
@@ -139,7 +139,7 @@ export default {
       // 同时通知父组件
       this.$emit('close');
     },
-    
+
     // 处理切换连接状态 - 使用mixin中的方法
     async handleToggleConnection() {
       if (this.wsIsConnected) {
@@ -148,43 +148,43 @@ export default {
         await this.connectWebSocket()
       }
     },
-    
+
     // 处理清空消息
     handleClearMessages() {
       clearMessages()
       this.$message.success('已清空对话记录')
     },
-    
+
     // 跳转到全屏聊天
     handleGoToFullChat() {
       this.$emit('go-to-chat')
     },
-    
+
     // 处理录音开始
     handleRecordingStart() {
       console.log('录音开始')
     },
-    
+
     // 处理录音结束
     handleRecordingStop() {
       console.log('录音结束')
     },
-    
+
     // 处理录音错误
     handleRecordingError(error) {
       console.error('录音错误:', error)
     },
-    
+
     // 处理模式变化
     handleModeChange(isVoiceMode) {
       console.log('模式变化:', isVoiceMode ? '语音' : '文字')
     },
-    
+
     // 处理WebSocket消息（由mixin调用）
     handleWebSocketMessage(data) {
       console.log('全局聊天框收到消息:', data)
     },
-    
+
     // 处理二进制音频消息
     handleBinaryAudioMessage(audioData) {
       if (this.$refs.chatComponentRef) {
@@ -362,16 +362,16 @@ export default {
     left: 16px;
     transform-origin: bottom center; /* 在移动设备上改变变换原点 */
   }
-  
+
   .chat-popup-container {
     width: 100%;
     height: 400px;
   }
-  
+
   .header-title {
     font-size: 14px;
   }
-  
+
   .connection-status {
     display: none;
   }
@@ -383,11 +383,11 @@ export default {
     background: #1f1f1f;
     border-color: #333;
   }
-  
+
   .chat-popup-content {
     background: #2a2a2a;
   }
-  
+
   .chat-popup-footer {
     background: #1a1a1a;
     border-color: #333;

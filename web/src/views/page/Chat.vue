@@ -18,7 +18,7 @@
       </div>
 
       <div class="header-title">
-        小智助手
+        WebChat
         <a-tag :color="connectionStatusColor">{{ localConnectionStatus }}</a-tag>
       </div>
 
