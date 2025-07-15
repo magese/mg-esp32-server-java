@@ -1,0 +1,47 @@
+server:
+  port: 8100
+spring:
+  profiles:
+    active: dev
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 15
+      auto-commit: true
+      idle-timeout: 120000
+      pool-name: DatebookHikariCP
+      max-lifetime: 120000
+      connection-timeout: 10000000
+      connection-test-query: SELECT 1
+  web:
+    resources:
+      add-mappings: true
+  groovy:
+    template:
+      check-template-location: false
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2048MB
+      max-request-size: 2048MB
+  threads:
+    virtual:
+      enabled: true
+
+mybatis:
+  mapper-locations: classpath*:com/magese/ai/mapper/*.xml
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    url: /v3/api-docs
+
+logging:
+  level:
+    root: info
+    org.springframework: info
+    io.github.imfangs.dify.client.impl.StreamEventDispatcher: error
