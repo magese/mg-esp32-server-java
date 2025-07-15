@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://ip:port/db?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
+    username: xxx
+    password: xxx
+  cache:
+    type: simple
+
+email:
+  smtp:
+    username: magese@foxmail.com
+    password: xxx
