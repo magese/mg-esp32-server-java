@@ -35,10 +35,10 @@ const store = new Vuex.Store({
 
         // 如果没有统一配置，读取分散的配置
         return {
-          url: localStorage.getItem('xiaozhi_server_url') || 'ws://127.0.0.1:8091/ws/xiaozhi/v1/',
-          deviceId: localStorage.getItem('xiaozhi_device_id') || `web_test`,
-          deviceName: localStorage.getItem('xiaozhi_device_name') || 'Web客户端',
-          token: localStorage.getItem('xiaozhi_token') || ''
+          url: localStorage.getItem('magese_ai_server_url') || 'ws://127.0.0.1:8100/ws/mg/ai/',
+          deviceId: localStorage.getItem('magese_ai_device_id') || `web_test`,
+          deviceName: localStorage.getItem('magese_ai_device_name') || 'Web客户端',
+          token: localStorage.getItem('magese_ai_token') || ''
         };
       })(),
       autoConnect: getStoredData('websocketAutoConnect') || false
@@ -90,16 +90,16 @@ const store = new Vuex.Store({
       localStorage.setItem('websocketConfig', JSON.stringify(state.websocket.serverConfig))
       // 同时保存到原有的分散key中（为了兼容）
       if (config.url !== undefined) {
-        localStorage.setItem('xiaozhi_server_url', config.url)
+        localStorage.setItem('magese_ai_server_url', config.url)
       }
       if (config.deviceId !== undefined) {
-        localStorage.setItem('xiaozhi_device_id', config.deviceId)
+        localStorage.setItem('magese_ai_device_id', config.deviceId)
       }
       if (config.deviceName !== undefined) {
-        localStorage.setItem('xiaozhi_device_name', config.deviceName)
+        localStorage.setItem('magese_ai_device_name', config.deviceName)
       }
       if (config.token !== undefined) {
-        localStorage.setItem('xiaozhi_token', config.token)
+        localStorage.setItem('magese_ai_token', config.token)
       }
     },
     SET_WS_AUTO_CONNECT: (state, autoConnect) => {

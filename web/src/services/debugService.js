@@ -14,33 +14,33 @@ function log(message, type = 'info') {
     type,
     time: new Date()
   };
-  
+
   // 添加到日志数组
   logs.push(entry);
-  
+
   // 如果日志超过最大条数，删除最旧的
   if (logs.length > MAX_LOGS) {
     logs = logs.slice(-MAX_LOGS);
   }
-  
+
   // 控制台输出
   switch (type) {
     case 'error':
-      console.error(`[XiaoZhi] ${message}`);
+      console.error(`[MageseAI] ${message}`);
       break;
     case 'warning':
-      console.warn(`[XiaoZhi] ${message}`);
+      console.warn(`[MageseAI] ${message}`);
       break;
     case 'success':
-      console.log(`%c[XiaoZhi] ${message}`, 'color: green');
+      console.log(`%c[MageseAI] ${message}`, 'color: green');
       break;
     case 'debug':
-      console.debug(`[XiaoZhi] ${message}`);
+      console.debug(`[MageseAI] ${message}`);
       break;
     default:
-      console.log(`[XiaoZhi] ${message}`);
+      console.log(`[MageseAI] ${message}`);
   }
-  
+
   return entry;
 }
 
