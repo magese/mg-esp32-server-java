@@ -46,7 +46,7 @@ CREATE TABLE `xiaozhi`.`sys_user` (
 
 -- Insert admin user only if it doesn't exist
 INSERT INTO xiaozhi.sys_user (username, password, state, isAdmin, name, createTime, updateTime)
-VALUES ('admin', '11cd9c061d614dcf37ec60c44c11d2ad', '1', '1', '小智', '2025-03-09 18:32:29', '2025-03-09 18:32:35');
+VALUES ('admin', '11cd9c061d614dcf37ec60c44c11d2ad', '1', '1', 'MAGESE', '2025-03-09 18:32:29', '2025-03-09 18:32:35');
 
 update `xiaozhi`.`sys_user` set name = 'MAGESE' where username = 'admin';
 
