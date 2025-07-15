@@ -11,7 +11,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: process.env.API_URL || 'http://localhost:8091', // 使用环境变量或默认使用服务名
+        target: process.env.API_URL || 'http://localhost:8100', // 使用环境变量或默认使用服务名
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/api'
@@ -21,7 +21,7 @@ module.exports = {
 
     // Various Dev Server settings
     host: process.env.HOST || '0.0.0.0', // 使用环境变量
-    port: process.env.PORT || 8084, // 使用环境变量
+    port: process.env.PORT || 8101, // 使用环境变量
     autoOpenBrowser: false,
     errorOverlay: true,
     notifyOnErrors: true,

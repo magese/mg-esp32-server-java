@@ -14,27 +14,27 @@ export const getResourceUrl = (path) => {
   if (path.startsWith('http://') || path.startsWith('https://')) {
     return path;
   }
-  
+
   // 确保URL以/开头
   if (!path.startsWith('/')) {
     path = '/' + path;
   }
-  
+
   // 开发环境下，需要使用完整的后端地址
   if (process.env.NODE_ENV === 'development') {
     // 开发环境下，我们需要指定后端地址
-    // 如果BASE_API为空，则使用默认的localhost:8091
-    const backendUrl = process.env.BACKEND_URL || 'http://localhost:8091';
-    
+    // 如果BASE_API为空，则使用默认的localhost:8100
+    const backendUrl = process.env.BACKEND_URL || 'http://localhost:8100';
+
     // 移除开头的斜杠，因为我们要将完整的URL传给组件
     if (path.startsWith('/')) {
       path = path.substring(1);
     }
-    
+
     // 构建完整的URL
     return `${backendUrl}/${path}`;
   }
-  
+
   // 生产环境下，直接使用相对路径，由Nginx代理处理
   return path;
 };
