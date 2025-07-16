@@ -22,7 +22,7 @@ COPY pom.xml ./
 RUN mvn -Dmaven.repo.local=/root/.m2/repository package -DskipTests
 
 # 正确提取项目版本号 - 使用更精确的grep模式匹配项目版本而非父项目版本
-RUN APP_VERSION=$(grep -A1 "<artifactId>xiaozhi.server</artifactId>" pom.xml | grep "<version>" | sed -e 's/<version>//' -e 's/<\/version>//' -e 's/[[:space:]]//g') && \
+RUN APP_VERSION=$(grep -A1 "<artifactId>mg-esp32-server</artifactId>" pom.xml | grep "<version>" | sed -e 's/<version>//' -e 's/<\/version>//' -e 's/[[:space:]]//g') && \
     echo "APP_VERSION=${APP_VERSION}" > /build/app_version.env && \
     cat /build/app_version.env
 
@@ -69,7 +69,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 # 复制构建阶段的JAR文件和版本信息
-COPY --from=builder /build/target/xiaozhi.server-*.jar /app/
+COPY --from=builder /build/target/mg-esp32-server-*.jar /app/
 COPY --from=builder /build/app_version.env /app/
 # 复制模型文件夹
 COPY --from=builder /build/models /app/models
@@ -80,7 +80,7 @@ if [ -f /app/app_version.env ]; then\n\
   . /app/app_version.env\n\
 fi\n\
 echo "Starting application version: ${APP_VERSION}"\n\
-java -Xms512m -Xmx1024m -jar /app/xiaozhi.server-${APP_VERSION}.jar\n\
+java -Xms512m -Xmx1024m -jar /app/mg-esp32-server${APP_VERSION}.jar\n\
 ' > /app/start.sh && chmod +x /app/start.sh
 
 # 使用 bash 执行启动脚本
