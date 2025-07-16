@@ -15,8 +15,5 @@ COPY target/mg-esp32-server-*.jar /app/mg-esp32-server.jar
 RUN mkdir -p /app/models
 COPY models/silero_vad.onnx /app/models/silero_vad.onnx
 
-# 复制 Vosk 模型（根据大小参数）
-COPY vosk_cache/vosk-model-cn-0.22 /app/models/vosk-model
-
 # 设置启动命令
 CMD ["java", "-Xms512m", "-Xmx1024m", "-jar", "/app/mg-esp32-server.jar"]
