@@ -2,9 +2,13 @@ server:
   port: 8100
 spring:
   profiles:
-    active: dev
+    active: ${PROFILES_ACTIVE}
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${DATASOURCE_URL}?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false&allowPublicKeyRetrieval=true
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
     hikari:
       minimum-idle: 5
       maximum-pool-size: 15
@@ -28,6 +32,8 @@ spring:
   threads:
     virtual:
       enabled: true
+  cache:
+    type: simple
 
 mybatis:
   mapper-locations: classpath*:com/magese/ai/mapper/*.xml
@@ -39,6 +45,11 @@ springdoc:
     enabled: true
     path: /swagger-ui.html
     url: /v3/api-docs
+
+email:
+  smtp:
+    username: ${EMAIL_SMTP_USERNAME}
+    password: ${EMAIL_SMTP_PASSWORD}
 
 logging:
   level:
