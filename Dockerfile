@@ -17,4 +17,10 @@ COPY app/models /app/models
 
 
 # 设置启动命令
-ENTRYPOINT ["java", "-Xms512m", "-Xmx1024m", "-Djava.security.egd=file:/dev/./urandom", "-Dfile.encoding=UTF-8", "-jar", "/app/mg-esp32-server.jar"]
+RUN echo '#!/bin/bash\n\
+echo "Starting application version: ${APP_VERSION}"\n\
+java -Xms512m -Xmx1024m -Dfile.encoding=UTF-8 -jar /app/mg-esp32-server.jar\n\
+' > /app/start.sh && chmod +x /app/start.sh
+
+# 使用 bash 执行启动脚本
+CMD ["/bin/bash", "/app/start.sh"]
