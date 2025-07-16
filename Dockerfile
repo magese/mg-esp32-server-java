@@ -29,6 +29,10 @@ RUN echo "应用文件列表:" && ls -l /app && \
     echo "模型文件列表:" && ls -l /app/models && \
     echo "模型目录大小: \$(du -sh /app/models)"
 
+# 在最后添加一个显式测试步骤
+RUN echo "测试运行JAR文件..." && \
+    java -Xms128m -Xmx256m -jar /app/mg-esp32-server.jar --version || \
+    (echo "JAR文件测试失败！" && exit 1)
 
 # 设置启动命令
 CMD ["java", "-Xms512m", "-Xmx1024m", "-jar", "/app/mg-esp32-server.jar"]
