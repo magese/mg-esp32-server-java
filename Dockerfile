@@ -23,9 +23,12 @@ RUN chmod +r /app/mg-esp32-server.jar && \
 # 复制模型文件
 COPY app/models /app/models
 
-# 验证文件存在性
+# 验证文件存在性和大小
 RUN echo "应用文件列表:" && ls -l /app && \
-    echo "模型文件列表:" && ls -l /app/models
+    echo "JAR 文件大小: \$(du -h /app/mg-esp32-server.jar)" && \
+    echo "模型文件列表:" && ls -l /app/models && \
+    echo "模型目录大小: \$(du -sh /app/models)"
+
 
 # 设置启动命令
 CMD ["java", "-Xms512m", "-Xmx1024m", "-jar", "/app/mg-esp32-server.jar"]
