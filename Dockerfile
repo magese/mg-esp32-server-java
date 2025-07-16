@@ -8,12 +8,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # 设置工作目录
 WORKDIR /app
 
-# 直接从构建上下文复制预构建的 JAR 文件
-COPY target/mg-esp32-server-*.jar /app/mg-esp32-server.jar
-
-# 创建模型目录并复制预置模型
-RUN mkdir -p /app/models
-COPY models/silero_vad.onnx /app/models/silero_vad.onnx
-
 # 设置启动命令
 CMD ["java", "-Xms512m", "-Xmx1024m", "-jar", "/app/mg-esp32-server.jar"]
