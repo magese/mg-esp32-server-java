@@ -1,11 +1,15 @@
 # 排除其他不需要的文件/目录
 .git/
 .github/
-.idea/
+**/.idea
+**/*.iml
 .vscode/
 node_modules/
-target/
+**/target/
 audio/
 avatar/
-*.md
+**/*.md
 *.log
+**/.git
+**/.gitignore
+docker_build_context/

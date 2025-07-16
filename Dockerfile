@@ -11,5 +11,11 @@ RUN chmod +x /usr/local/bin/ffmpeg && \
 # 设置工作目录
 WORKDIR /app
 
+# 复制应用程序JAR文件到工作目录
+COPY app/mg-esp32-server.jar /app/
+
+# 复制模型文件（根据您的流水线需要）
+COPY app/models /app/models
+
 # 设置启动命令
 CMD ["java", "-Xms512m", "-Xmx1024m", "-jar", "/app/mg-esp32-server.jar"]
