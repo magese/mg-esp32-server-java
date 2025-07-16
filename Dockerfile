@@ -17,4 +17,4 @@ COPY app/models /app/models
 
 
 # 设置启动命令
-ENTRYPOINT ["java", "-Xms512m", "-Xmx1024m", "-Djava.security.egd=file:/dev/./urandom", "-Dfile.encoding=UTF-8", "-jar", "api-web.jar"]
+ENTRYPOINT ["java", "-Xms512m", "-Xmx1024m", "-Djava.security.egd=file:/dev/./urandom", "-Dfile.encoding=UTF-8", "-jar", "/app/mg-esp32-server.jar"]
