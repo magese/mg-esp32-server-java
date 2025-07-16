@@ -16,8 +16,16 @@ WORKDIR /app
 # 复制应用程序JAR文件到工作目录
 COPY app/mg-esp32-server.jar /app/
 
+# 设置JAR文件权限
+RUN chmod +r /app/mg-esp32-server.jar && \
+    echo "JAR 文件权限: \$(stat -c '%A %n' /app/mg-esp32-server.jar)"
+
 # 复制模型文件
 COPY app/models /app/models
+
+# 验证文件存在性
+RUN echo "应用文件列表:" && ls -l /app && \
+    echo "模型文件列表:" && ls -l /app/models
 
 # 设置启动命令
 CMD ["java", "-Xms512m", "-Xmx1024m", "-jar", "/app/mg-esp32-server.jar"]
