@@ -1,6 +1,8 @@
 # 使用轻量级 JRE 作为基础镜像
 FROM eclipse-temurin:21-jre
 
+EXPOSE 8100
+
 # 复制静态 FFmpeg 到系统路径
 COPY ffmpeg-static/ /usr/local/bin/
 
