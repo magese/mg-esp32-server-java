@@ -29,6 +29,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                         "/ws/**",
                         // 添加 swagger 相关路径
                         "/swagger-ui/**",
+                        "/swagger-ui.html",
                         "/v3/api-docs/**",
                         "/swagger-resources/**",
                         "/webjars/**"
