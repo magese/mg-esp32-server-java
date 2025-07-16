@@ -14,7 +14,7 @@ WORKDIR /app
 # 复制应用程序JAR文件到工作目录
 COPY app/mg-esp32-server.jar /app/
 
-# 复制模型文件（根据您的流水线需要）
+# 复制模型文件
 COPY app/models /app/models
 
 # 设置启动命令
