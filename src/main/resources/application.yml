@@ -1,5 +1,6 @@
 server:
   port: 8100
+  host: ${SERVER_HOST}
 spring:
   profiles:
     active: ${PROFILES_ACTIVE}

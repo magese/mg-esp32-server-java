@@ -1,12 +1,12 @@
 package com.magese.ai.utils;
 
+import cn.hutool.core.util.StrUtil;
 import com.magese.ai.communication.server.websocket.WebSocketConfig;
 import com.magese.ai.entity.SysUser;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Getter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
@@ -22,10 +22,10 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Slf4j
 @Component
 public class CmsUtils {
 
-    private static final Logger logger = LoggerFactory.getLogger(CmsUtils.class);
     public static final String USER_ATTRIBUTE_KEY = "user";
 
     // 缓存服务器IP地址 - 只在第一次调用getServerIp时初始化
@@ -45,14 +45,22 @@ public class CmsUtils {
 
     @Value("${server.port:8091}")
     private int port;
+    @Value("${server.host:null}")
+    private String host;
 
     // 初始化websocketAddress、otaAddress
     @PostConstruct
     private void initializeAddresses() {
-        String serverIp = getServerIp();
-        websocketAddress = "ws://" + serverIp + ":" + port + WebSocketConfig.WS_PATH; // 默认WebSocket端口
-        otaAddress = "http://" + serverIp + ":" + port + "/api/device/ota";
-        serverAddress = "http://" + serverIp + ":" + port;
+        if (StrUtil.isNotBlank(host)) {
+            this.websocketAddress = "wss://" + host + WebSocketConfig.WS_PATH; // 默认WebSocket端口
+            this.otaAddress = "https://" + host + "/api/device/ota";
+            this.serverAddress = "https://" + host + port;
+        } else {
+            String serverIp = getServerIp();
+            this.websocketAddress = "ws://" + serverIp + ":" + port + WebSocketConfig.WS_PATH; // 默认WebSocket端口
+            this.otaAddress = "http://" + serverIp + ":" + port + "/api/device/ota";
+            this.serverAddress = "http://" + serverIp + ":" + port;
+        }
     }
 
     public static SysUser getUser() {
@@ -203,16 +211,16 @@ public class CmsUtils {
     /**
      * 判断MAC地址是否合法
      */
-    public boolean isMacAddressValid(String mac) {
+    public boolean isMacAddressInvalid(String mac) {
         // 正则校验格式
         if (!macPattern.matcher(mac).matches()) {
-            return false;
+            return true;
         }
         // 校验MAC地址是否为单播地址
         String normalized = mac.toLowerCase();
         String[] parts = normalized.split("[:-]");
         int firstByte = Integer.parseInt(parts[0], 16);
-        return (firstByte & 1) == 0; // 最低位为0表示单播地址，合法
+        return (firstByte & 1) != 0; // 最低位为0表示单播地址，合法
     }
 
     /**
@@ -354,7 +362,7 @@ public class CmsUtils {
 
             return localIp;
         } catch (Exception e) {
-            logger.error("确定服务器IP时发生错误", e);
+            log.error("确定服务器IP时发生错误", e);
             return "127.0.0.1"; // 如果发生错误，返回本地回环地址
         }
     }
@@ -458,7 +466,7 @@ public class CmsUtils {
             }
 
         } catch (Exception e) {
-            logger.warn("获取Docker宿主机IP失败: {}", e.getMessage());
+            log.warn("获取Docker宿主机IP失败: {}", e.getMessage());
         }
 
         return null;
@@ -518,7 +526,7 @@ public class CmsUtils {
                 }
             }
         } catch (Exception e) {
-            logger.warn("读取路由表失败: {}", e.getMessage());
+            log.warn("读取路由表失败: {}", e.getMessage());
         }
 
         return null;
@@ -603,7 +611,7 @@ public class CmsUtils {
                 }
             }
         } catch (Exception e) {
-            logger.warn("获取非Docker网络IP失败: {}", e.getMessage());
+            log.warn("获取非Docker网络IP失败: {}", e.getMessage());
         }
 
         return null;
@@ -747,12 +755,12 @@ public class CmsUtils {
                         }
                     }
                 } else {
-                    logger.warn("IP信息服务返回非200状态码: {} - {}", service, connection.getResponseCode());
+                    log.warn("IP信息服务返回非200状态码: {} - {}", service, connection.getResponseCode());
                 }
             } catch (java.net.SocketTimeoutException e) {
-                logger.warn("获取IP信息超时，切换到下一个服务: {} - {}", service, e.getMessage());
+                log.warn("获取IP信息超时，切换到下一个服务: {} - {}", service, e.getMessage());
             } catch (Exception e) {
-                logger.warn("获取IP信息失败: {} - {}", service, e.getMessage());
+                log.warn("获取IP信息失败: {} - {}", service, e.getMessage());
             } finally {
                 // 关闭资源
                 try {
@@ -763,7 +771,7 @@ public class CmsUtils {
                         connection.disconnect();
                     }
                 } catch (Exception e) {
-                    logger.warn("关闭资源失败: {}", e.getMessage());
+                    log.warn("关闭资源失败: {}", e.getMessage());
                 }
             }
 
@@ -871,30 +879,11 @@ public class CmsUtils {
                 }
             }
         } catch (Exception e) {
-            logger.warn("解析IP信息失败: {}", e.getMessage());
+            log.warn("解析IP信息失败: {}", e.getMessage());
             // 解析异常，返回null
         }
 
         return null;
-    }
-
-    /**
-     * 清理HTML内容
-     */
-    private static String cleanHtml(String html) {
-        if (html == null)
-            return "";
-
-        // 移除所有HTML标签
-        String noHtml = html.replaceAll("<[^>]+>", " ");
-
-        // 移除多余空格
-        noHtml = noHtml.replaceAll("\\s+", " ").trim();
-
-        // 移除JavaScript
-        noHtml = noHtml.replaceAll("(?i)\\bjavascript\\b.*?;", "");
-
-        return noHtml;
     }
 
     /**
@@ -931,6 +920,7 @@ public class CmsUtils {
                         name.equals("docker0") || name.contains("veth");
 
                 if (isInDocker && isDockerInterface) {
+                    log.info("in docker interface: {}", name);
                     // 在Docker环境中，将Docker接口放低优先级，但不完全排除
                     // 稍后处理
                 } else {
@@ -979,7 +969,7 @@ public class CmsUtils {
             }
 
         } catch (Exception e) {
-            logger.error("获取本地IP地址失败: {}", e.getMessage(), e);
+            log.error("获取本地IP地址失败: {}", e.getMessage(), e);
         }
 
         return "127.0.0.1"; // 如果没有找到合适的IP，返回回环地址
@@ -1022,7 +1012,7 @@ public class CmsUtils {
             reader.close();
 
         } catch (Exception e) {
-            logger.warn("检测Docker环境失败: {}", e.getMessage());
+            log.warn("检测Docker环境失败: {}", e.getMessage());
             // 忽略异常，继续检查其他方法
         }
 

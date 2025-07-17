@@ -191,7 +191,7 @@ public class DeviceController extends BaseController {
                 log.debug("JSON解析失败: {}", e.getMessage());
             }
 
-            if (deviceIdAuth == null || !cmsUtils.isMacAddressValid(deviceIdAuth)) {
+            if (deviceIdAuth == null || cmsUtils.isMacAddressInvalid(deviceIdAuth)) {
                 Map<String, Object> errorResponse = new HashMap<>();
                 errorResponse.put("error", "设备ID不正确");
                 byte[] responseBytes = JsonUtil.OBJECT_MAPPER.writeValueAsBytes(errorResponse);
@@ -297,7 +297,7 @@ public class DeviceController extends BaseController {
     public ResponseEntity<String> otaActivate(@Parameter(name = "Device-Id", description = "设备唯一标识", required = true, in = ParameterIn.HEADER)
                                               @RequestHeader("Device-Id") String deviceId) {
         try {
-            if (!cmsUtils.isMacAddressValid(deviceId)) {
+            if (cmsUtils.isMacAddressInvalid(deviceId)) {
                 return ResponseEntity.status(202).build();
             }
             // 解析请求体
