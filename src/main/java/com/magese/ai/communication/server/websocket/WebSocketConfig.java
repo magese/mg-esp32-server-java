@@ -16,7 +16,7 @@ import org.springframework.web.socket.server.standard.ServletServerContainerFact
 public class WebSocketConfig implements WebSocketConfigurer {
 
     // 定义为public static以便其他类可以访问
-    public static final String WS_PATH = "/ws/mg/esp32";
+    public static final String WS_PATH = "/ws/mg/esp32/";
 
     @Resource
     private WebSocketHandler webSocketHandler;
