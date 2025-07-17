@@ -23,8 +23,8 @@ export const getResourceUrl = (path) => {
   // 开发环境下，需要使用完整的后端地址
   if (process.env.NODE_ENV === 'development') {
     // 开发环境下，我们需要指定后端地址
-    // 如果BASE_API为空，则使用默认的localhost:8100
-    const backendUrl = process.env.BACKEND_URL || 'http://localhost:8100';
+    // 如果BASE_API为空，则使用默认的119.91.219.153:18100
+    const backendUrl = process.env.BACKEND_URL || 'http://119.91.219.153:18100';
 
     // 移除开头的斜杠，因为我们要将完整的URL传给组件
     if (path.startsWith('/')) {

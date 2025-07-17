@@ -35,7 +35,7 @@ const store = new Vuex.Store({
 
         // 如果没有统一配置，读取分散的配置
         return {
-          url: localStorage.getItem('magese_ai_server_url') || 'ws://127.0.0.1:8100/ws/mg/ai/',
+          url: localStorage.getItem('magese_ai_server_url') || 'wss://esp32.magese.com/ws/mg/esp32',
           deviceId: localStorage.getItem('magese_ai_device_id') || `web_test`,
           deviceName: localStorage.getItem('magese_ai_device_name') || 'Web客户端',
           token: localStorage.getItem('magese_ai_token') || ''
