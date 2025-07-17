@@ -51,6 +51,10 @@ email:
     username: ${EMAIL_SMTP_USERNAME}
     password: ${EMAIL_SMTP_PASSWORD}
 
+vad:
+  model:
+    path: ${VAD_MODEL_PATH:models/silero_vad:onnx}
+
 logging:
   level:
     root: info
